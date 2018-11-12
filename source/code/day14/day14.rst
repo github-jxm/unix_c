@@ -345,3 +345,28 @@ B.网络地址结构
     ssize_t send (int sockfd, void const* buf, size_t len, int flags);
     //返回kk实际发送的字节数。失败返回-1。
 
+
+**********
+example   
+**********
+
+
+.. literalinclude:: ./day14/netcli.c
+    :language: c
+    :encoding: utf-8
+
+.. literalinclude:: ./day14/netcli.c
+    :language: c
+    :encoding: utf-8
+
+.. literalinclude:: ./day14/tcpsvr.c
+    :language: c
+    :encoding: utf-8
+
+.. literalinclude:: ./day14/csem.c
+    :language: c
+    :encoding: utf-8
+
+.. literalinclude:: ./day14/gsem.c
+    :language: c
+    :encoding: utf-8
