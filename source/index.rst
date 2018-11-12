@@ -12,6 +12,8 @@ Welcome to unix_c's documentation!
 
    code/day14/day14
    code/day15/day15
+   code/day16/day16
+   code/chatroom/Chatroom/index
 
 Indices and tables
 ==================
