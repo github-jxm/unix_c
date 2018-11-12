@@ -11,6 +11,7 @@ Welcome to unix_c's documentation!
    :caption: Contents:
 
    code/day14/day14
+   code/day15/day15
 
 Indices and tables
 ==================
