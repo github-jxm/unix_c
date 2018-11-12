@@ -12,8 +12,6 @@ Welcome to unix_c's documentation!
 
    code/day14/day14
 
-
-
 Indices and tables
 ==================
 
