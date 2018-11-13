@@ -30,8 +30,9 @@ void sigint (int signum) {
 // 从消息包队列弹出消息
 char* pop_msg (void) {
 	pthread_mutex_lock (&g_mtx_msgs);
-	while (list_empty (g_msgs))
+	while (list_empty (g_msgs)){
 		pthread_cond_wait (&g_cnd_msgs, &g_mtx_msgs);
+	}
 	char* msg = (char*)list_pop (g_msgs);
 	pthread_mutex_unlock (&g_mtx_msgs);
 	return msg;
@@ -58,8 +59,7 @@ void* send_proc (void* arg) {
 			int* connfd = (int*)list_next (g_rcvs); // 针对每一个接收器
 
 			// 向接收器发送消息包
-			if (send (*connfd, msg,
-				(strlen (msg) + 1) * sizeof (msg[0]), 0) == -1) {
+			if (send (*connfd, msg, (strlen (msg) + 1) * sizeof (msg[0]), 0) == -1) {
 				perror ("send");
 				close (*connfd);
 				*connfd = -1;
@@ -114,8 +114,7 @@ void* recv_proc (void* arg) {
 
 	// 向消息包队列压入欢迎包
 	char* msg = malloc (MAX_MSG * sizeof (char));
-	sprintf (msg, "系统> 热烈欢迎%s进入聊天室！",
-		sender->nickname);
+	sprintf (msg, "系统> 热烈欢迎%s进入聊天室！", sender->nickname);
 	push_msg (msg);
 
 	// 接收循环
@@ -172,23 +171,19 @@ int start_send (void) {
 		return -1;
 	}
 
-	if ((error = pthread_attr_setdetachstate (&attr,
-		PTHREAD_CREATE_DETACHED)) != 0) {
-		fprintf (stderr, "pthread_attr_setdetachstate: %s\n",
-			strerror (error));
+	if ((error = pthread_attr_setdetachstate (&attr, PTHREAD_CREATE_DETACHED)) != 0) {
+		fprintf (stderr, "pthread_attr_setdetachstate: %s\n", strerror (error));
 		return -1;
 	}
 
 	pthread_t tid;
-	if ((error = pthread_create (&tid, &attr, send_proc,
-		NULL)) != 0) {
+	if ((error = pthread_create (&tid, &attr, send_proc, NULL)) != 0) {
 		fprintf (stderr, "pthread_create: %s\n", strerror (error));
 		return -1;
 	}
 
 	if ((error = pthread_attr_destroy (&attr)) != 0) {
-		fprintf (stderr, "pthread_attr_destroy: %s\n",
-			strerror (error));
+		fprintf (stderr, "pthread_attr_destroy: %s\n", strerror (error));
 		return -1;
 	}
 
@@ -272,8 +267,7 @@ int wait_client (int sockfd, char nickname[]) {
 	// 接受来自客户机的连接请求
 	struct sockaddr_in addrcli;
 	socklen_t addrlen = sizeof (addrcli);
-	int connfd = accept (sockfd, (struct sockaddr*)&addrcli,
-		&addrlen);
+	int connfd = accept (sockfd, (struct sockaddr*)&addrcli, &addrlen);
 	if (connfd == -1) {
 		perror ("accept");
 		return -1;
@@ -293,30 +287,28 @@ int wait_client (int sockfd, char nickname[]) {
 	if (! strncmp (tag, "SNDR", 4))
 		if (verify (tag + 4)) {
 			printf ("服务器：接受来自%s:%u发送器的连接请求。\n",
-				inet_ntoa (addrcli.sin_addr), ntohs (addrcli.sin_port));
+					inet_ntoa (addrcli.sin_addr), ntohs (addrcli.sin_port));
 			strcpy (nickname, tag + 4);
 		}
 		else {
 			printf ("服务器：拒绝来自%s:%u发送器的连接请求。\n",
-				inet_ntoa (addrcli.sin_addr), ntohs (addrcli.sin_port));
+					inet_ntoa (addrcli.sin_addr), ntohs (addrcli.sin_port));
 			strcpy (ack, "更换昵称再试一次！");
 		}
 	// 接收器
-	else
-	if (! strncmp (tag, "RCVR", 4))
+	else if (! strncmp (tag, "RCVR", 4))
 		printf ("服务器：接受来自%s:%u接收器的连接请求。\n",
-			inet_ntoa (addrcli.sin_addr), ntohs (addrcli.sin_port));
+				inet_ntoa (addrcli.sin_addr), ntohs (addrcli.sin_port));
 	// 非法客户机
 	else {
 		printf ("服务器：拒绝来自%s:%u客户机的连接请求。\n",
-			inet_ntoa (addrcli.sin_addr), ntohs (addrcli.sin_port));
+				inet_ntoa (addrcli.sin_addr), ntohs (addrcli.sin_port));
 		close (connfd);
 		return -2;
 	}
 
 	// 向客户机发送应答包
-	if (send (connfd, ack, (strlen (ack) + 1) *
-		sizeof (ack[0]), 0) == -1) {
+	if (send (connfd, ack, (strlen (ack) + 1) * sizeof (ack[0]), 0) == -1) {
 		perror ("send");
 		close (connfd);
 		return -2;
@@ -338,15 +330,12 @@ int start_recv (int connfd, const char* nickname) {
 	pthread_attr_t attr;
 
 	if ((error = pthread_attr_init (&attr)) != 0) {
-		fprintf (stderr, "pthread_attr_init: %s\n",
-			strerror (error));
+		fprintf (stderr, "pthread_attr_init: %s\n", strerror (error));
 		return -1;
 	}
 
-	if ((error = pthread_attr_setdetachstate (&attr,
-		PTHREAD_CREATE_DETACHED)) != 0) {
-		fprintf (stderr, "pthread_attr_setdetachstate: %s\n",
-			strerror (error));
+	if ((error = pthread_attr_setdetachstate (&attr, PTHREAD_CREATE_DETACHED)) != 0) {
+		fprintf (stderr, "pthread_attr_setdetachstate: %s\n", strerror (error));
 		return -1;
 	}
 
@@ -359,15 +348,13 @@ int start_recv (int connfd, const char* nickname) {
 	// 每个接收线程持有一个发送器结构体，
 	// 为该发送器提供服务
 	pthread_t tid;
-	if ((error = pthread_create (&tid, &attr, recv_proc,
-		sender)) != 0) {
+	if ((error = pthread_create (&tid, &attr, recv_proc, sender)) != 0) {
 		fprintf (stderr, "pthread_create: %s\n", strerror (error));
 		return -1;
 	}
 
 	if ((error = pthread_attr_destroy (&attr)) != 0) {
-		fprintf (stderr, "pthread_attr_destroy: %s\n",
-			strerror (error));
+		fprintf (stderr, "pthread_attr_destroy: %s\n", strerror (error));
 		return -1;
 	}
 

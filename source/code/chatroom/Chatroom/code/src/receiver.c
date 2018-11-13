@@ -30,16 +30,14 @@ int start (const char* ip, unsigned short port) {
 	addr.sin_port = htons (port);
 	addr.sin_addr.s_addr = inet_addr (ip);
 
-	if (connect (sockfd, (struct sockaddr*)&addr,
-		sizeof (addr)) == -1) {
+	if (connect (sockfd, (struct sockaddr*)&addr, sizeof (addr)) == -1) {
 		perror ("connect");
 		return -1;
 	}
 
 	// 向服务器发送标志包
 	char tag[MAX_TAG] = "RCVR";
-	if (send (sockfd, tag, (strlen (tag) + 1) *
-		sizeof (tag[0]), 0) == -1) {
+	if (send (sockfd, tag, (strlen (tag) + 1) * sizeof (tag[0]), 0) == -1) {
 		perror ("send");
 		return -1;
 	}
@@ -81,8 +79,7 @@ int run (int sockfd) {
 
 		// 向服务器发送应答包
 		char ack[MAX_ACK] = "OK";
-		if (send (sockfd, ack, (strlen (ack) + 1) *
-			sizeof (ack[0]), 0) == -1) {
+		if (send (sockfd, ack, (strlen (ack) + 1) * sizeof (ack[0]), 0) == -1) {
 			perror ("send");
 			return -1;
 		}

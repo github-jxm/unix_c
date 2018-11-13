@@ -18,8 +18,7 @@ int start (const char* ip, unsigned short port, const char* nickname) {
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons (port);
 	addr.sin_addr.s_addr = inet_addr (ip);
-	if (connect (sockfd, (struct sockaddr*)&addr,
-		sizeof (addr)) == -1) {
+	if (connect (sockfd, (struct sockaddr*)&addr, sizeof (addr)) == -1) {
 		perror ("connect");
 		return -1;
 	}
@@ -27,8 +26,7 @@ int start (const char* ip, unsigned short port, const char* nickname) {
 	// 向服务器发送标志包
 	char tag[MAX_TAG] = "SNDR";
 	strcat (tag, nickname);
-	if (send (sockfd, tag, (strlen (tag) + 1) *
-		sizeof (tag[0]), 0) == -1) {
+	if (send (sockfd, tag, (strlen (tag) + 1) * sizeof (tag[0]), 0) == -1) {
 		perror ("send");
 		return -1;
 	}
@@ -73,8 +71,7 @@ int run (int sockfd, const char* nickname) {
 			break;
 
 		// 向服务器发送文本包
-		if (send (sockfd, txt, (strlen (txt) + 1) *
-			sizeof (txt[0]), 0) == -1) {
+		if (send (sockfd, txt, (strlen (txt) + 1) * sizeof (txt[0]), 0) == -1) {
 			perror ("send");
 			return -1;
 		}
