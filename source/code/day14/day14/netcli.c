@@ -28,9 +28,7 @@ int main (int argc, char* argv[]) {
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons (atoi (argv[2]));
 	addr.sin_addr.s_addr = inet_addr (argv[1]);
-	if (connect (sockfd,
-		(struct sockaddr*)&addr,
-		sizeof (addr)) == -1) {
+	if (connect (sockfd, (struct sockaddr*)&addr, sizeof (addr)) == -1) {
 		perror ("connect");
 		return -1;
 	}
@@ -41,8 +39,7 @@ int main (int argc, char* argv[]) {
 		gets (buf);
 		if (! strcmp (buf, "!"))
 			break;
-		if (write (sockfd, buf,
-			strlen (buf) + 1) == -1) {
+		if (write (sockfd, buf, strlen (buf) + 1) == -1) {
 			perror ("write");
 			return -1;
 		}

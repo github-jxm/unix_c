@@ -25,16 +25,14 @@ int main (int argc, char* argv[]) {
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons (atoi (argv[1]));
 	addr.sin_addr.s_addr = INADDR_ANY;
-	if (bind (sockfd, (struct sockaddr*)&addr,
-		sizeof (addr)) == -1) {
+	if (bind (sockfd, (struct sockaddr*)&addr, sizeof (addr)) == -1) {
 		perror ("bind");
 		return -1;
 	}
 	printf ("服务器：接收数据...\n");
 	for (;;) {
 		char buf[1024];
-		ssize_t rb = read (sockfd, buf,
-			sizeof (buf));
+		ssize_t rb = read (sockfd, buf, sizeof (buf));
 		if (rb == -1) {
 			perror ("read");
 			return -1;

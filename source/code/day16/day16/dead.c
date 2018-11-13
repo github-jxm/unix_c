@@ -1,11 +1,14 @@
+/*
+ * dead.c
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <pthread.h>
-pthread_mutex_t g_a =
-	PTHREAD_MUTEX_INITIALIZER;
-pthread_mutex_t g_b =
-	PTHREAD_MUTEX_INITIALIZER;
+
+pthread_mutex_t g_a = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t g_b = PTHREAD_MUTEX_INITIALIZER;
 void* thread1 (void* arg) {
 	pthread_t tid = pthread_self ();
 	printf ("%lu线程：等待A...\n", tid);

@@ -1,5 +1,5 @@
 #########
-线程
+线程管理
 #########
 
 ************
@@ -192,4 +192,62 @@ IEEE POSIX 1003.1c指定了POSIX线程标准。
                      socklen_t addrlen);
 
     // 输入参数addr和addrlen表示接收方的地址信息。
+
+
+**********
+example   
+**********
+
+
+.. literalinclude:: ./day15/create.c
+    :language: c
+    :encoding: utf-8
+
+.. literalinclude:: ./day15/join.c
+    :language: c
+    :encoding: utf-8
+
+.. literalinclude:: ./day15/exit.c
+    :language: c
+    :encoding: utf-8
+
+.. literalinclude:: ./day15/equal.c
+    :language: c
+    :encoding: utf-8
+
+.. literalinclude:: ./day15/detach.c
+    :language: c
+    :encoding: utf-8
+
+.. literalinclude:: ./day15/cancel.c
+    :language: c
+    :encoding: utf-8
+
+------ 
+
+.. literalinclude:: ./day15/udpcli.c
+    :language: c
+    :encoding: utf-8
+
+.. literalinclude:: ./day15/tcpcli.c
+    :language: c
+    :encoding: utf-8
+
+.. literalinclude:: ./day15/tcpcli.c
+    :language: c
+    :encoding: utf-8
+
+.. literalinclude:: ./day15/tcpsvr.c
+    :language: c
+    :encoding: utf-8
+
+-------
+
+.. literalinclude:: ./day15/Makefile
+    :language: makefile
+    :encoding: utf-8
+
+
+
+
 

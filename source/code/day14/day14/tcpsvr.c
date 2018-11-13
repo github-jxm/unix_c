@@ -15,8 +15,7 @@ int main (int argc, char* argv[]) {
 		return -1;
 	}
 	printf ("服务器：创建套接字...\n");
-	int sockfd = socket (AF_INET, SOCK_STREAM,
-		0);
+	int sockfd = socket (AF_INET, SOCK_STREAM, 0);
 	if (sockfd == -1) {
 		perror ("socket");
 		return -1;
@@ -27,7 +26,7 @@ int main (int argc, char* argv[]) {
 	addr.sin_port = htons (atoi (argv[1]));
 	addr.sin_addr.s_addr = INADDR_ANY;
 	if (bind (sockfd, (struct sockaddr*)&addr,
-		sizeof (addr)) == -1) {
+		           sizeof (addr)) == -1) {
 		perror ("bind");
 		return -1;
 	}
