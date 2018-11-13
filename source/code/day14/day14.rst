@@ -44,15 +44,15 @@
     工作在TCP和UDP协议的底层。
     实现在互联网上传递信息的基本机制。
 
-    ISO            TCP/IP
+    ISO           TCP/IP
     应用层
     表示层        应用层      telnet/ftp/http
     会话层
     ------------------------
     传输层        传输层      TCP/UDP
-    网络层        互联网层   IP
+    网络层        互联网层    IP
     ------------------------
-    数据链路层 网络接口层 硬件/驱动
+    数据链路层    网络接口层  硬件/驱动
     物理层
 
 3.消息流和协议栈
@@ -70,6 +70,7 @@
 * 1)IP地址是Internet中唯一标识一台计算机的地址。
 
 ::
+
     A.IPv4：32位，IPv6：128位
     B.点分十进制字符串表示：0x01020304 -> 1.2.3.4
 
@@ -80,9 +81,9 @@
     A级：0XXXXXXX | XXXXXXXX XXXXXXXX XXXXXXXX
              网络地址       本机地址
     B级：10XXXXXX XXXXXXXX | XXXXXXXX XXXXXXXX
-             网络地址                          本机地址
+             网络地址           本机地址
     C级：110XXXXX XXXXXXXX XXXXXXXX | XXXXXXXX
-    网络地址                                            本机地址
+    网络地址                          本机地址
     172.40.0.10
     D级：1110XXXX XXXXXXXX XXXXXXXX XXXXXXXX
              多播地址

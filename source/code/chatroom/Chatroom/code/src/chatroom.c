@@ -249,8 +249,7 @@ int verify (const char* nickname) {
 	list_begin (g_snds);
 	while (! list_end (g_snds)) {
 		// 针对每一个发送器
-		if (! strcmp ((**(SENDER**)list_next (g_snds)).nickname,
-			nickname)) {
+		if (! strcmp ((**(SENDER**)list_next (g_snds)).nickname, nickname)) {
 			ok = 0;
 			break;
 		}
