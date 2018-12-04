@@ -1,0 +1,13 @@
+*
+*
+!.gitignore
+!Makefile
+!msga.c
+!msgb.c
+!msgtypea.c
+!msgtypeb.c
+!pipea.c
+!pipeb.c
+!shma.c
+!shmb.c
+!shmctl.c
