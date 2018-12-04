@@ -1,0 +1,11 @@
+*
+!.gitignore
+!Makefile
+!child.c
+!execl.c
+!exit.c
+!father.c
+!signal.c
+!vfork.c
+!wait.c
+!waitpid.c
