@@ -1,0 +1,14 @@
+*
+!Makefile
+!.gitignore
+!fork.c
+!ftab.c
+!id.c
+!is.c
+!list.c
+!mem.c
+!orphan.c
+!os.c
+!pid.c
+!tree.c
+!zombie.c
