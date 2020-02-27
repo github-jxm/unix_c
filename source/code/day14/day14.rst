@@ -144,7 +144,7 @@ Java@UNIX@大型机<->socket<->C@Windows@PC机
 ::
 
                 AF_UNIX/AF_LOCAL/AF_FILE，本地通信
-                AF_INET，基于IPv4的网络通信
+                AF_INET，基于IPv4的网络通信, 对于BSD是AF_INET,对于POSIX是PF_INET. 两者本质一样。
                 AF_INET6，基于IPv6的网络通信
                 AF_PACKET，基于IP的底层协议进行网络通信
 
@@ -171,7 +171,7 @@ A.基本地址结构
 
     struct sockaddr {
       sa_family_t sa_family; // 地址族
-      char sa_data[14]; // 地址值
+      char sa_data[14];      // 地址值
     };
 
 B.网络地址结构
@@ -179,16 +179,17 @@ B.网络地址结构
 .. code-block:: c
 
     #include <netinet/in.h>
+
     struct sockaddr_in {
-      sa_family_t sin_family; // 地址族，AF_INET/AF_INET6
-      in_port_t    sin_port; // unsigned short，网络字节序的端口号
-                                       // 逻辑上表示一个参与通信的进程，
-                                       // 0-1024，公知端口，WWW-80
-                                       // FTP-21，TELNET-23，...
-                                       // 自己编写的应用程序使用1024以上的
-                                       // 端口号
-      struct in_addr sin_addr; // 网络字节序的IP地址
+      sa_family_t sin_family; /* 地址族，AF_INET/AF_INET6 */
+      in_port_t    sin_port;  /* unsigned short，网络字节序的端口号
+                                  逻辑上表示一个参与通信的进程，
+                                  0-1024，公知端口，WWW-80
+                                  FTP-21，TELNET-23，...
+                                  自己编写的应用程序使用1024以上的端口号 */
+      struct in_addr sin_addr; /* 网络字节序的IP地址 */
     };
+
 
 ::
 
@@ -220,17 +221,17 @@ B.网络地址结构
 
 .. code-block:: c
 
-    int bind (int sockfd, const string sockaddr* addr,
-      socklen_t addrlen);
+    int bind (int sockfd, const string sockaddr* addr, socklen_t addrlen);
 
     // 成功返回0，失败返回-1。
+
 
 * 4)将套接字和对方通信地址连接
 
 .. code-block:: c
 
-    int connect (int sockfd, const string sockaddr* addr,
-      socklen_t addrlen);
+    int connect (int sockfd, const string sockaddr* addr, socklen_t addrlen);
+
     // 成功返回0，失败返回-1。
 
 * 5)用读写文件的方式通信：read/write
@@ -264,8 +265,8 @@ B.网络地址结构
 
 :: 
 
-    服务器：创建套接字->准备地址结构并绑定->接收数据->关闭套接字
-    客户机：创建套接字->准备地址结构并连接->发送数据->关闭套接字
+    服务器：创建套接字 -> 准备地址结构并绑定 -> 接收数据 -> 关闭套接字
+    客户机：创建套接字 -> 准备地址结构并连接 -> 发送数据 -> 关闭套接字
 
 ************************************************
 三、基于TCP协议的客户机/服务器模型
@@ -324,12 +325,11 @@ B.网络地址结构
     #include <sys/socket.h>
     int listen (
         int sockfd,   // 套接字描述符
-        int backlog  // 未决连接请求队列的最大长度，1024
+        int backlog   // 未决连接请求队列的最大长度，1024
     );
     //成功返回0，失败返回-1。
 
-    int accept (int sockfd, struct sockaddr* addr,
-      socklen_t* addrlen);
+    int accept (int sockfd, struct sockaddr* addr, socklen_t* addrlen);
     /*
     从sockfd参数所标识套接字的未决连接请求队列中，
     提取第一个连接请求，同时创建一个新的套接字，
