@@ -330,9 +330,7 @@ B.网络地址结构
     //成功返回0，失败返回-1。
 
     int accept (int sockfd, struct sockaddr* addr, socklen_t* addrlen);
-    /*
-    从sockfd参数所标识套接字的未决连接请求队列中，
-    提取第一个连接请求，同时创建一个新的套接字，
+    /* 从sockfd参数所标识套接字的未决连接请求队列中， 提取第一个连接请求，同时创建一个新的套接字，
     用于在该连接中通信，返回该套接字描述符。
     同时通过后两个参数向调用者输出客户机的地址信息。
     失败返回-1。
@@ -351,18 +349,23 @@ B.网络地址结构
 example   
 **********
 
+* UDP
 
 .. literalinclude:: ./day14/netcli.c
     :language: c
     :encoding: utf-8
 
-.. literalinclude:: ./day14/netcli.c
+.. literalinclude:: ./day14/netsvr.c
     :language: c
     :encoding: utf-8
+
+* TCP
 
 .. literalinclude:: ./day14/tcpsvr.c
     :language: c
     :encoding: utf-8
+
+* 信号量 sem
 
 .. literalinclude:: ./day14/csem.c
     :language: c
